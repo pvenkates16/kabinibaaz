@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Golden Getaway: A Kabini Wildlife Escape!</title>
+<style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f5ee; /* Light green-grey for nature feel */
+            color: #333;
+        }
+        .container {
+            max-width: 1200px; /* Increased from 900px */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            background-color: #388e3c; /* Forest Green */
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #2e7d32; /* Darker Green */
+            border-bottom: 2px solid #c8e6c9;
+            padding-bottom: 8px;
+            margin-top: 35px;
+            font-size: 2em;
+        }
+        h3 {
+            color: #4caf50; /* Medium Green */
+            font-size: 1.5em;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 12px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 12px;
+        }
+        ol {
+            margin-left: 25px;
+            margin-bottom: 12px;
+        }
+        li {
+            margin-bottom: 7px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #bf360c; /* Deep Orange for emphasis */
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .image-gallery img {
+            max-width: 100%;
+            width: 280px; /* Fixed width for better layout */
+            height: 180px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensures images cover the area without distortion */
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .image-note {
+            font-style: italic;
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        /* Style for the word cloud container */
+        #word-cloud-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .map-container {
+            width: 100%;
+            height: 500px; /* Adjust height as needed */
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden; /* Ensures the iframe fits within the rounded corners */
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 35px;
+            color: #777;
+            font-size: 0.9em;
+            border-top: 1px solid #e0e0e0;
+        }
+        /* New style for attendee checkboxes */
+        .attendee-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .attendee-item {
+            display: flex;
+            align-items: center;
+            background-color: #e8f5e9;
+            padding: 8px 12px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .attendee-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        /* --- TAB STYLES --- */
+        .tabs-container {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+            display: flex; /* Use flexbox for horizontal tabs */
+            flex-wrap: wrap; /* Allow tabs to wrap if screen is small */
+            justify-content: center; /* Align tabs to the left */
+            gap: 5px; /* Space between tabs */
+        }
+        .tab-button {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px 5px 0 0; /* Rounded top corners */
+            text-decoration: none; /* Remove underline for links */
+            color: #555;
+            flex-grow: 0; /* Don't allow tabs to grow */
+            /* max-width: 180px; */ /* Remove max-width to allow tabs to take their content's width */
+            white-space: nowrap; /* Prevent text from wrapping */
+            text-align: center;
+        }
+        .tab-button:hover {
+            background-color: #d0d0d0;
+            color: #333;
+        }
+        .tab-button.active {
+            background-color: #388e3c; /* Forest Green */
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 3px solid #bf360c; /* Highlight active tab */
+            pointer-events: none; /* Prevent clicking active tab */
+        }
+
+        .tab-content {
+            display: none; /* Hidden by default */
+            padding-top: 20px; /* Space from tabs */
+        }
+        .tab-content.active {
+            display: block; /* Show active tab content */
+        }
+
+        /* Style for the "Back to Main Page" button/link */
+        .back-to-main {
+            display: block; /* Makes it a block element */
+            width: fit-content; /* Adjust width to content */
+            margin: 20px auto 0 auto; /* Center it below the content */
+            padding: 10px 20px;
+            background-color: #bf360c; /* Deep Orange */
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .back-to-main:hover {
+            background-color: #a02d09;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.7/build/d3.layout.cloud.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Golden Getaway: A Kabini Wildlife Escape!</h1>
+        </header>
+
+        <nav class="tabs-container">
+            <a href="#welcome" class="tab-button active" data-tab="welcome">Welcome</a>
+            <a href="#overview" class="tab-button" data-tab="overview">Overview</a>
+            <a href="#attendees" class="tab-button" data-tab="attendees">Attendees</a>
+            <a href="#accommodations" class="tab-button" data-tab="accommodations">Accommodations</a>
+            <a href="#itinerary" class="tab-button" data-tab="itinerary">Activities</a>
+            <a href="#stops" class="tab-button" data-tab="stops">Roadside Stops</a>
+            <a href="#contact" class="tab-button" data-tab="contact">Contact Info</a>
+        </nav>
+
+        <div id="tab-content-area">
+
+            <section id="welcome" class="tab-content active">
+                <h2>Welcome to The Golden Getaway!</h2>
+                <p>Dear adventurers, prepare for an exhilarating and refreshing 4-day wildlife escape designed exclusively for our cherished group! We've crafted a fantastic trip from <span class="highlight"> November 25th to 29th</span> , so say yes to thrilling safaris, serene nature, and abundant quality time together. Get ready to witness the wonders of Kabini and create unforgettable memories!</p>
+                <p>Let's add some new stories to the classic collection:
+                    <ul>
+                        <li>हरमुनिया</li>
+                        <li>भालू फूँक</li>
+                        <li>पपीता</li>
+                        <li>डंडा है या छेदा</li>
+                        <li>ఎర్ర పూకు, వెర्र పూకు</li>
+                    </ul>
+                Remind me if I've forgotten any highlights.
+                </p>
+
+                <img src="https://natureexplorers.in/wp-content/uploads/2022/07/leapord_kabini.jpg" alt="Kabini Leopard" style="max-width:100%; height:auto; margin-top: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto;">
+                
+                <section id="sightseeing-highlights">
+                    <h2>Sightseeing & Activity Highlights</h2>
+                    <p>Get ready for incredible encounters with nature! Below are some highlights of what you can expect during your Kabini adventure:</p>
+                    <div class="image-gallery">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Elephants_at_Kabini.jpg/1599px-Elephants_at_Kabini.jpg?20190312045152" alt="Elephant in Kabini forest during safari">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_murky_morning_for_the_backwater_female_tiger_%2851340324701%29.jpg/1600px-A_murky_morning_for_the_backwater_female_tiger_%2851340324701%29.jpg?20210928140749" alt="Tiger in its natural habitat">
+                        <img src="https://cdn.prod.website-files.com/65aa483b5ed7ebb96ac699bd/67286699b194c0a472b7643f_65f03a718a06fb1da05afbf4_greater-flameback-pair.jpeg" alt="Colorful birds perched on a branch">
+                        <img src="https://c8.alamy.com/comp/2BCBBDM/a-female-spotted-deer-feeding-her-fawn-at-nagarhole-national-park-kabini-karnataka-india-2BCBBDM.jpg" alt="Herd of deer in the forest">
+                        <img src="https://cdn.prod.website-files.com/65aa483b5ed7ebb96ac699bd/67286ca186705e69a6ef446a_65f043526343cbb813332585_gaur-male.jpeg" alt="Hamar bhains ko danda nahi marne ka hai">
+                    </div>
+                    <p class="image-note"><em>Haathi, sher, chidiya, sita haran, bhains, lauda lasoon aur chutney</em></p>
+                    <ul>
+                        <li><strong>Jeep Safaris:</strong> The prime attraction! Explore the Nagarhole National Park for sightings of tigers, leopards, elephants, gaurs, deer, wild dogs, and more.</li>
+                        <li><strong>Boat Safaris:</strong> Experience wildlife from the Kabini River, often offering unique perspectives of animals coming to the water's edge and fantastic birdwatching opportunities.</li>
+                        <li><strong>Nature Walks & Bird Watching:</strong> Guided walks around the lodge property to observe smaller wildlife, insects, and a vast array of bird species.</li>
+                        <li><strong>Coracle Rides:</strong> A traditional, gentle boat ride on the Kabini River, offering a unique local experience.</li>
+                        <li><strong>Naturalist Talks:</strong> Engaging sessions by experienced naturalists who share insights into the local ecosystem and wildlife.</li>
+                        <li><strong>Resort Amenities:</strong> Enjoy swimming pools, spas, and relaxation areas within your chosen lodge.</li>
+                    </ul>
+                </section>
+                <section id="packing-tips">
+                    <h2>What to Pack & Other Tips</h2>
+                    <ul>
+                        <li><strong>Comfortable Walking Shoes:</strong> Essential for safaris and walks.</li>
+                        <li><strong>Neutral Colored Clothing:</strong> Earthy tones (greens, browns, khakis) are best for safaris to blend into the environment.</li>
+                        <li><strong>Light Layers:</strong> Mornings and evenings can be cool; afternoons are warm.</li>
+                        <li><strong>Binoculars & Camera:</strong> Must-haves for wildlife enthusiasts!</li>
+                        <li><strong>Hat & Sunglasses:</strong> Protection from the sun during safaris.</li>
+                        <li><strong>Insect Repellent:</strong> Important for outdoor areas.</li>
+                        <li><strong>Personal Medications:</strong> Don't forget any essentials.</li>
+                        <li><strong>Small Backpack/Day Bag:</strong> For water, snacks, and personal items during excursions.</li>
+                        <li><strong>Power Bank:</strong> For charging phones and other devices.</li>
+                        <li><strong>Positive Attitude & Sense of Adventure!</strong></li>
+                    </ul>
+                </section>
+            </section>
+
+            <section id="overview" class="tab-content">
+                <h2>Trip Overview & Philosophy</h2>
+                <ul>
+                    <li><strong>Dates: </strong><span class="highlight">November 25th to November 29th</span>.</li>
+                    <li><strong>Group Size:</strong> Our beloved group of 60-year-olds!</li>
+                    <li><strong>Goal:</strong> To immerse ourselves in nature, experience thrilling wildlife encounters, relax in a serene environment, and most importantly, maximize our shared moments.</li>
+                </ul>
+                <h3>Maximizing Time Together - Our Constraints:</h3>
+                <ul>
+                    <li><strong>Shared Accommodation:</strong> We will all stay at a single, comfortable wildlife resort or lodge. This central base ensures easy communication, spontaneous gatherings, and collective experiences.</li>
+                    <li><strong>Pre-booked Transport:</strong> All local transport, including Bangalore-Kabini transfers and safari pickups, will be pre-arranged (e.g., a comfortable tempo traveller or multiple spacious SUVs/vans) to minimize waiting times and ensure we travel as a cohesive unit.</li>
+                    <li><strong>Group Dining:</strong> All meals will be planned at the resort's dining facilities, fostering shared culinary experiences and conversations. Dietary preferences will be accommodated.</li>
+                    <li><strong>Curated Activities:</strong> Safaris and other major activities will be pre-booked for the entire group, guaranteeing everyone participates in the core experiences together.</li>
+                    <li><strong>Flexible Free Time:</strong> While activities are planned, ample free time will be built in for relaxation, quiet conversations, or enjoying resort amenities together.</li>
+                    <li><strong>Accessibility & Comfort:</strong> All chosen venues and activities will prioritize easy accessibility and comfort, minimizing strenuous physical demands. Safari vehicles will be chosen for ease of entry/exit.</li>
+                </ul>
+                <section id="destination-transit">
+                    <h2>Destination Choice & Transit from Bangalore</h2>
+                    <ul>
+                        <li><strong>Proposed Destination:</strong> <span class="highlight">Kabini, Karnataka</span> (Renowned for its rich wildlife, including tigers, leopards, elephants, and a diverse birdlife, offering a serene escape amidst nature.)</li>
+                    </ul>
+                    <h3>Transit from Bangalore:</h3>
+                    <ul>
+                        <li><strong>Mode of Transport:</strong> Comfortable, air-conditioned mini-bus (e.g., a Tempo Traveller or similar) or multiple large SUVs/sedans, ensuring collective travel.</li>
+                        <li><strong>Travel Time:</strong> Approximately 5-6 hours (depending on traffic and road conditions).</li>
+                        <li><strong>Departure Point in Bangalore:</strong> A central, easily accessible pick-up point will be arranged (e.g., a common landmark or multiple pick-ups if feasible).</li>
+                        <li><strong>Onboard Comfort:</strong> The vehicle will be equipped with comfortable seating, ample legroom, and provisions for water and light snacks. Scheduled comfort breaks will be taken.</li>
+                    </ul>
+                </section>
+                <section id="kabini-map">
+                    <h2>Kabini and Surrounds: Route & Attractions</h2>
+                    <p>Here's a map showing the route from Bangalore to Kabini via Mysore, along with some key attractions within a 50 km radius of Kabini. This will help visualize your journey and potential nearby explorations.</p>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d113947.69766627057!2d76.51869829399455!3d12.316827083042468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBangalore%2C%20Karnataka%2C%20India!3m2!1d12.9715987!2d77.5945627!4m5!1s0x3baf01f93ee7248f%3A0xa645068a0a75878d!2sKabini%2C%20Karnataka%2C%20India!3m2!1d12.115456299999999!2d76.2917726!5e0!3m2!1sen!2sdk!4v1717311181829!5m2!1sen!2sdk"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <p class="image-note"><em>The map shows the route from Bangalore to Kabini (via Mysore) and general points of interest in the Kabini region, including Nagarhole National Park. Zoom in and out to explore further.</em></p>
+                </section>
+            </section>
+
+            <section id="attendees" class="tab-content">
+                <h2>Attendees Confirmation</h2>
+                <p>Please use the checkboxes below to confirm attendance. All attendees are marked as 'True' by default, except for "Anyone else?".</p>
+                <div class="attendee-list" id="attendeeCheckboxes">
+                    </div>
+                <section id="attendees-word-cloud">
+                    <h2>Hawabaaz Attendees (Word Cloud)</h2>
+                    <p>Initial hand raisers</p>
+                    <div id="word-cloud-container">
+                        <canvas id="wordCloudCanvas" width="800" height="400" style="border:1px solid #ccc; background-color: #f9f9f9;"></canvas>
+                    </div>
+                    <p class="image-note"><em>Note: This word cloud is generated dynamically using JavaScript. If it doesn't appear immediately, try refreshing the page.</em></p>
+                </section>
+            </section>
+
+            <section id="accommodations" class="tab-content">
+                <h2>Accommodation: Sandesh Water Edge</h2>
+                <p>Your group will be staying at the beautiful Sandesh Water Edge. Here are some images showcasing the rooms and views:</p>
+                <img src="http://googleusercontent.com/image_generation_content/1" alt="Rooms and Views at Sandesh Water Edge" style="width:100%;max-width:600px;">
+                <p>Sandesh Water Edge offers luxurious accommodations with stunning views. More details about the resort, including dining and other amenities, can be found on their official website.</p>
+                <section id="restaurants-bars">
+                    <h2>Dining at Sandesh Water Edge</h2>
+                    <p>Sandesh Water Edge boasts a variety of dining options. Please check with the resort directly for specific details regarding restaurants, bars, and lounges.</p>
+                </section>
+            </section>
+            <section id="itinerary" class="tab-content">
+                <h2>Proposed 4-Day Itinerary & Activities</h2>
+                <p>(Note: This is a sample itinerary. Safari timings are fixed by forest department and depend on availability. <span class="highlight">Safari bookings must be made well in advance.</span>)</p>
+
+                <h3>Day 1: Arrival & First Safari Thrill</h3>
+                <ul>
+                    <li><strong>Morning (8:00 AM):</strong> Depart from Bangalore.</li>
+                    <li><strong>Afternoon (1:00 PM):</strong> Arrive at Kabini resort, check-in, and have group lunch.</li>
+                    <li><strong>Late Afternoon (3:00 PM):</strong> <span class="highlight">Afternoon Boat Safari or Jeep Safari</span> (depending on booking and preference). Experience the rich biodiversity around Kabini River and Nagarhole.</li>
+                    <li><strong>Evening (6:30 PM):</strong> Return to resort, relax.</li>
+                    <li><strong>Dinner (8:00 PM):</strong> Group dinner at the resort, followed by a naturalist's talk or wildlife documentary.</li>
+                </ul>
+
+                <h3>Day 2: Deep Dive into the Wild</h3>
+                <ul>
+                    <li><strong>Early Morning (6:00 AM):</strong> Wake up for <span class="highlight">Morning Jeep Safari</span> into Nagarhole National Park. Look out for tigers, leopards, elephants, gaurs, deer, and various bird species.</li>
+                    <li><strong>Morning (9:30 AM):</strong> Return to resort for breakfast.</li>
+                    <li><strong>Late Morning/Lunch (11:00 AM - 2:00 PM):</strong> Leisure time, relax by the river, enjoy resort amenities, or take a gentle walk around the lodge property. Group lunch.</li>
+                    <li><strong>Afternoon (3:00 PM):</strong> <span class="highlight">Afternoon Boat Safari or Jeep Safari</span>. Another opportunity for incredible wildlife sightings.</li>
+                    <li><strong>Evening (6:30 PM):</strong> Return, relax.</li>
+                    <li><strong>Dinner (8:00 PM):</strong> Group dinner, perhaps a bonfire (if permitted by resort and weather).</li>
+                </ul>
+
+                <h3>Day 3: Nature's Embrace & Local Culture</h3>
+                <ul>
+                    <li><strong>Morning (9:00 AM):</strong> Relaxed breakfast.</li>
+                    <li><strong>Late Morning (10:30 AM):</strong> <span class="highlight">Nature Walk or Bird Watching Session</span> around the resort's periphery with a resident naturalist. Gentle pace.</li>
+                    <li><strong>Lunch (1:00 PM):</strong> Group lunch at the resort.</li>
+                    <li><strong>Afternoon (3:00 PM):</strong> Option for a <span class="highlight">Coracle Ride</span> on the Kabini River (traditional round boats, very gentle) or simply enjoy the tranquility of the resort.</li>
+                    <li><strong>Late Afternoon (5:00 PM):</strong> Interactive session on local flora/fauna, or a cultural performance/documentary.</li>
+                    <li><strong>Dinner (8:00 PM):</strong> Farewell group dinner, sharing favorite moments from the trip.</li>
+                </ul>
+
+                <h3>Day 4: Leisurely Departure</h3>
+                <ul>
+                    <li><strong>Morning (9:30 AM):</strong> Leisurely breakfast and pack up.</li>
+                    <li><strong>Late Morning (11:00 AM):</strong> Final relaxation, perhaps some last-minute souvenir shopping at the resort.</li>
+                    <li><strong>Lunch (1:00 PM):</strong> Final group lunch at the resort.</li>
+                    <li><strong>Afternoon (2:00 PM):</strong> Depart for Bangalore, carrying cherished memories of Kabini's wild beauty!</li>
+                </ul>
+                <section id="beyond-29th">
+                    <h2>Extend Your Adventure: Beyond November 29th</h2>
+                    <p>Should any of you wish to extend your stay beyond November 29th and continue exploring the beauty of Karnataka, here are a few excellent options for individual or smaller group excursions:</p>
+                    <h3>Explore Mysore (approx. 1.5-2 hours from Kabini):</h3>
+                    <ul>
+                        <li><strong>Mysore Palace:</strong> A magnificent historical palace, a UNESCO World Heritage site, and one of India's most visited attractions. The illumination on Sunday evenings is spectacular.</li>
+                        <li><strong>Chamundi Hills:</strong> Visit the Chamundeshwari Temple atop the hills, offering panoramic views of Mysore city.</li>
+                        <li><strong>Brindavan Gardens:</strong> Famous for its musical fountains and illuminated terraces, especially beautiful in the evening.</li>
+                        <li><strong>Mysore Zoo:</strong> One of the oldest and most well-maintained zoos in India, home to a wide variety of species.</li>
+                        <li><strong>Local Markets & Shopping:</strong> Explore Devaraja Market for a sensory overload of flowers, spices, and local crafts, or shop for Mysore silk sarees and sandalwood products.</li>
+                    </ul>
+                    <h3>Visit Ooty & Coonoor (approx. 3-4 hours from Kabini):</h3>
+                    <ul>
+                        <li><strong>Nilgiri Mountain Railway (Toy Train):</strong> A UNESCO World Heritage site, offering a picturesque journey through the hills.</li>
+                        <li><strong>Botanical Gardens & Rose Garden, Ooty:</strong> Beautifully maintained gardens showcasing a vast array of flora.</li>
+                        <li><strong>Doddabetta Peak, Ooty:</strong> The highest point in the Nilgiris, providing stunning views.</li>
+                        <li><strong>Tea Plantations, Coonoor:</strong> Enjoy scenic drives through tea estates and visit a tea factory.</li>
+                    </ul>
+                    <h3>Bandipur National Park (Adjacent to Nagarhole, easy transit from Kabini):</h3>
+                    <ul>
+                        <li>If your thirst for wildlife isn't quenched, Bandipur offers more safari opportunities and is known for its tiger and elephant populations. Many resorts offer combined packages or can arrange safaris here.</li>
+                    </ul>
+                    <h3>Wayanad, Kerala (approx. 2-3 hours from Kabini):</h3>
+                    <ul>
+                        <li>Just across the border in Kerala, Wayanad offers lush green landscapes, waterfalls (like Soochipara Falls), spice plantations, historical caves (Edakkal Caves), and serene trekking paths.</li>
+                    </ul>
+                    <p class="highlight">Please note: If you plan to extend, it's advisable to make arrangements for accommodation and transport in advance, especially during the peak season. We can help provide contacts for local tour operators if needed.</p>
+                </section>
+            </section>
+
+            <section id="stops" class="tab-content">
+                <h2>Dosa Delights: Stops Between Bangalore and Kabini</h2>
+                <p>The journey from Bangalore to Kabini, while scenic, is also a great opportunity to savor some authentic South Indian flavors, especially delicious dosas! While many smaller eateries exist, here are a few well-regarded options along the route, particularly around Mysore, which is roughly halfway.</p>
+                <ul>
+                    <li><strong>Hotel Mylari, Mysore:</strong> A legendary spot in Mysore, famous for its unique, soft, and buttery dosas. It's a small, no-frills place, but the taste is unforgettable. Be prepared for a wait, especially during peak hours.</li>
+                    <li><strong>Vinayaka Mylari, Mysore:</strong> Often confused with Hotel Mylari, this is another popular spot with a similar style of dosa. Also highly recommended for a quick and delicious breakfast or snack.</li>
+                    <li><strong>Local Darshinis/Hotels in Ramanagara or Maddur:</strong> As you drive through towns like Ramanagara or Maddur (famous for Maddur Vada), you'll find numerous smaller "Darshini" style restaurants. These are typically self-service and offer a quick, authentic, and budget-friendly dosa experience. Look for places that seem busy with locals – that's often a good sign!</li>
+                    <li><strong>Kamath Lokaruchi, Ramanagara:</strong> A larger, more established restaurant on the Bangalore-Mysore highway, offering a wide range of South Indian dishes, including good dosas. It's a reliable stop for a clean restroom break and a decent meal.</li>
+                </ul>
+                <p>It's best to factor in a short stop for these culinary gems. A quick 30-45 minute break can enhance your road trip experience significantly!</p>
+            </section>
+
+            <section id="contact" class="tab-content">
+                <h2>Contact Information & RSVP</h2>
+                <h3>Chat with our Kabini AI Assistant!</h3>
+                <p>Have quick questions about Kabini wildlife, safaris, accommodations, or anything else about your trip? Our AI assistant is here to help:</p>
+                <iframe
+                    src="https://www.chatbase.co/chatbot-iframe/337-cJRbLVx23JiEgkB7K"
+                    width="100%"
+                    style="height: 100%; min-height: 700px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;"
+                    frameborder="0"
+                ></iframe>
+                <p style="margin-top: 20px;">If the bot can't answer your question, or for specific trip arrangements, please use the contact details below.</p>
+                
+                <ul>
+                    <li><strong>Trip Coordinator/Contact Person:</strong> Rahul Masurekar, Ananth Murthy</li>
+                    <li><strong>Phone:</strong> +91 98862 20044, +91 99450 55859</li>
+                    <li><strong>Email:</strong> [Your Email Address]</li>
+                    <li><strong>RSVP By:</strong> [Date, e.g., October 15th] to confirm your participation and preferred 4-day window. Remember, safari bookings require early confirmation!</li>
+                </ul>
+                <section id="call-to-action">
+                    <h3>Call to Action:</h3>
+                    <p>We're incredibly excited to embark on this wildlife journey with all of you! Please review the details, and let's get ready for an unforgettable adventure together amidst the wonders of Kabini. Your enthusiasm makes every sighting more special!</p>
+                </section>
+            </section>
+
+        </div> <a href="#welcome" class="back-to-main" id="backToMainBtn">Back to Main Page</a>
+
+    </div> <footer style="margin-top: 50px;">
+        <p>© 2025 The Golden Getaway. All rights reserved.</p>
+    </footer>
+
+    <script>
+        console.log("Script starting...");
+
+        const attendeesData = [
+            { name: "Rahul", isPresent: true },
+            { name: "Prabhu", isPresent: true },
+            { name: "Ramani", isPresent: true },
+            { name: "Minocha", isPresent: true },
+            { name: "VG", isPresent: true },
+            { name: "Khatarnath", isPresent: true },
+            { name: "Pawan", isPresent: true },
+            { name: "Rajiv Chandra", isPresent: true },
+            { name: "Arore", isPresent: true },
+            { name: "Murthy", isPresent: true },
+            { name: "Gajju", isPresent: true },
+            { name: "Khalid", isPresent: true },
+            { name: "Anand Prasad", isPresent: true },
+            { name: "Venky", isPresent: true },
+            { name: "Jamil", isPresent: true },
+            { name: "Anyone else?", isPresent: false }
+        ];
+        console.log("Attendees data:", attendeesData);
+
+        // Function to create checkboxes
+        function createAttendeeCheckboxes() {
+            const container = document.getElementById("attendeeCheckboxes");
+            if (container) {
+                attendeesData.forEach(attendee => {
+                    const div = document.createElement("div");
+                    div.classList.add("attendee-item");
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.id = `attendee_${attendee.name.replace(/\s+/g, '_')}`;
+                    checkbox.name = "attendee";
+                    checkbox.value = attendee.name;
+                    checkbox.checked = attendee.isPresent;
+                    checkbox.disabled = true; // Make checkboxes read-only
+
+                    checkbox.addEventListener('change', (event) => {
+                        attendee.isPresent = event.target.checked;
+                        console.log(`${attendee.name} attendance status: ${attendee.isPresent}`);
+                    });
+
+                    const label = document.createElement("label");
+                    label.htmlFor = checkbox.id;
+                    label.textContent = attendee.name;
+
+                    div.appendChild(checkbox);
+                    div.appendChild(label);
+                    container.appendChild(div);
+                });
+            } else {
+                console.error("Attendee checkboxes container not found!");
+            }
+        }
+
+        // --- TAB FUNCTIONALITY ---
+        function showTab(tabId) {
+            // Remove 'active' class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Hide all tab content sections
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked tab button
+            const activeTabButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+            if (activeTabButton) {
+                activeTabButton.classList.add('active');
+            }
+
+            // Show the corresponding tab content
+            const activeTabContent = document.getElementById(tabId);
+            if (activeTabContent) {
+                activeTabContent.classList.add('active');
+            }
+
+            // If the active tab is 'attendees', generate word cloud
+            if (tabId === 'attendees') {
+                // Ensure word cloud is regenerated or drawn when attendees tab is active
+                // This prevents issues if the canvas wasn't visible before.
+                generateWordCloud();
+            }
+        }
+
+        // Event listener for tab buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create checkboxes first
+            createAttendeeCheckboxes();
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    const tabId = this.dataset.tab; // Get the data-tab attribute value
+                    showTab(tabId);
+                });
+            });
+
+            // Handle "Back to Main Page" button click
+            const backToMainBtn = document.getElementById('backToMainBtn');
+            if (backToMainBtn) {
+                backToMainBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showTab('welcome'); // Go back to the 'welcome' tab
+                });
+            }
+
+            // Show the initial tab (e.g., 'welcome' or based on URL hash)
+            const initialTab = window.location.hash.substring(1) || 'welcome';
+            showTab(initialTab);
+        });
+
+
+        // --- WORD CLOUD GENERATION LOGIC (moved into a function) ---
+        function generateWordCloud() {
+            console.log("Generating word cloud...");
+
+            // Check if d3 and d3.layout.cloud are defined
+            if (typeof d3 === 'undefined') {
+                console.error("D3.js library is not loaded or defined.");
+                return;
+            }
+            if (typeof d3.layout === 'undefined' || typeof d3.layout.cloud === 'undefined') {
+                console.error("D3-cloud library (d3.layout.cloud) is not loaded or defined.");
+                return;
+            }
+
+            // Prepare data for d3-cloud (each name gets an arbitrary value for size)
+            const words = attendeesData.map(function(d) {
+                return {text: d.name, size: 10 + Math.random() * 30}; // Random size for visual variety
+            });
+            console.log("Words array for d3-cloud:", words);
+
+            const margin = {top: 10, right: 10, bottom: 10, left: 10},
+                  width = 800 - margin.left - margin.right,
+                  height = 400 - margin.top - margin.bottom;
+
+            const fill = d3.scaleOrdinal(d3.schemeCategory10); // Use D3's color scheme
+
+            const layout = d3.layout.cloud()
+                .size([width, height])
+                .words(words)
+                .padding(5)
+                .rotate(function() { return ~~(Math.random() * 2) * 90; })
+                .font("Impact")
+                .fontSize(function(d) { return d.size; })
+                .on("end", draw);
+
+            layout.start();
+
+            function draw(words) {
+                console.log("Draw function called. Words to draw:", words);
+                const canvas = document.getElementById("wordCloudCanvas");
+                if (!canvas) {
+                    console.error("Canvas element for word cloud not found!");
+                    return;
+                }
+                const ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, width, height); // Clear previous drawing
+                ctx.translate(width / 2, height / 2); // Center the drawing
+
+                words.forEach(function(d) {
+                    ctx.save();
+                    ctx.translate(d.x, d.y);
+                    ctx.rotate(d.rotate * Math.PI / 180);
+                    ctx.textAlign = "center";
+                    ctx.font = d.size + "px " + d.font;
+                    ctx.fillStyle = fill(d.text);
+                    ctx.fillText(d.text, 0, 0);
+                    ctx.restore();
+                });
+                console.log("Word cloud drawing complete.");
+            }
+        }
+    </script>
+</body>
+</html>
